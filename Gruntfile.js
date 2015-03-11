@@ -35,7 +35,10 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         src: 'app/index.js',
-        dest: 'www/index.js'
+        dest: 'www/index.js',
+        options: {
+          transform: ['reactify']
+        }
       }
     },
 
@@ -43,9 +46,14 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 8000,
-          base: 'www',
-          livereload: true
+          base: 'www'
         }
+      }
+    },
+
+    shell: {
+      cucumber: {
+        command: 'cucumber.js features/*.feature'
       }
     },
 
@@ -55,7 +63,7 @@ module.exports = function(grunt) {
         livereload: true
       },
       js: {
-        files: [ 'app/**/*.js' ],
+        files: [ 'app/**/*.js', 'app/**/*.jsx' ],
         tasks: [ 'browserify' ]
       },
       css: {
@@ -67,6 +75,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', [ 'clean', 'bower', 'copy', 'sass', 'browserify' ]);
+  grunt.registerTask('test', ['build', 'connect', 'shell:cucumber']);
 
   grunt.registerTask('default', [ 'build', 'connect', 'watch' ]);
 

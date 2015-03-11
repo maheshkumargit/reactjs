@@ -1,10 +1,15 @@
-html {
-	body {
-background: black;
-		color: white;
-	}
-}
+$font-size-base: 16px;
 
-@import "twitter-bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import "bootstrap-material-design/sass/material";
 
 @import "home/home";
+
+p.input-tip {
+  display: none;
+}
+input:focus + p.input-tip,
+select:focus + p.input-tip,
+textarea:focus + p.input-tip {
+  display: block;
+}
